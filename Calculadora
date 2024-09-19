@@ -1,0 +1,46 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.calculadora;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Caique Martins
+ */
+
+public class Calculadora {
+    
+    public static void main(String[] args) {
+        double num1;
+        double num2;
+        char operador;
+        try (Scanner scanner = new Scanner(System.in) // Inicializa o scanner para capturar entradas do usuário
+        ) {
+            System.out.print("Digite o primeiro número: ");
+            num1 = scanner.nextDouble(); // Lê o primeiro número
+            System.out.print("Digite o segundo número: ");
+            num2 = scanner.nextDouble(); // Lê o segundo número
+            System.out.print("Digite a operação (+, -, *, /): ");
+            operador = scanner.next().charAt(0); // Lê o operador
+            // Fecha o scanner
+        }
+      double resultado;
+
+      switch(operador) { // Verifica a operação escolhida
+         case '+' -> resultado = num1 + num2; // Soma
+         case '-' -> resultado = num1 - num2; // Subtração
+         case '*' -> resultado = num1 * num2; // Multiplicação
+         case '/' -> resultado = num1 / num2; // Divisão
+         default -> {
+             System.out.println("Operação inválida."); // Operador inválido
+             return;
+            }
+      }
+        // Verifica a operação escolhida
+
+      System.out.println(num1 + " " + operador + " " + num2 + ": " + resultado); // Exibe o resultado
+   }
+}
