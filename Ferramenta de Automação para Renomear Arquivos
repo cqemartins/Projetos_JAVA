@@ -1,0 +1,38 @@
+import os
+
+def renomear_arquivos(diretorio, prefixo, sufixo, extensao):
+    try:
+        if not os.path.exists(diretorio):
+            print(f"Diretório '{diretorio}' não encontrado.")
+            return
+
+        arquivos = [f for f in os.listdir(diretorio) if os.path.isfile(os.path.join(diretorio, f))]
+
+        if not arquivos:
+            print("Nenhum arquivo encontrado no diretório.")
+            return
+
+        for index, arquivo in enumerate(arquivos, start=1):
+            nome, ext = os.path.splitext(arquivo)
+            if extensao and ext != extensao:
+                continue
+
+            novo_nome = f"{prefixo}{index:03}{sufixo}{ext}"
+            caminho_antigo = os.path.join(diretorio, arquivo)
+            caminho_novo = os.path.join(diretorio, novo_nome)
+
+            os.rename(caminho_antigo, caminho_novo)
+            print(f"'{arquivo}' renomeado para '{novo_nome}'")
+
+        print("Renomeação concluída.")
+    except Exception as e:
+        print(f"Erro ao renomear arquivos: {e}")
+
+if __name__ == "__main__":
+    print("--- Ferramenta de Renomeação de Arquivos ---")
+    diretorio = input("Digite o caminho do diretório: ").strip()
+    prefixo = input("Digite o prefixo (ou deixe vazio): ").strip()
+    sufixo = input("Digite o sufixo (ou deixe vazio): ").strip()
+    extensao = input("Digite a extensão do arquivo para filtrar (ex: .txt, ou deixe vazio para todas): ").strip()
+
+    renomear_arquivos(diretorio, prefixo, sufixo, extensao)
