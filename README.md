@@ -1,2 +1,2 @@
 # Projetos
-Aqui estarão alguns projetos em JAVA adicionados ao meu portfólio.
+Aqui estarão projetos em algumas linguagens adicionados ao meu portfólio.
