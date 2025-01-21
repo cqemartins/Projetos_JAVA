@@ -72,7 +72,7 @@ O repositório está organizado com cada projeto em pastas separadas. Cada pasta
    ```
 2. Navegue até o diretório do projeto desejado:
    ```bash
-   cd Projetos_JAVA/<Banco de Dados para Loja Online>
+   cd Projetos_JAVA/<nome_do_projeto>
    ```
 3. Consulte o README de cada projeto para instruções específicas de execução.
 
