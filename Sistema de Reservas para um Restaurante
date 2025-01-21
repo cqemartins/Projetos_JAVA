@@ -1,0 +1,145 @@
+using System;
+using System.Collections.Generic;
+
+namespace SistemaDeReservas
+{
+    public class Reserva
+    {
+        public int Id { get; set; }
+        public string NomeCliente { get; set; }
+        public DateTime DataHora { get; set; }
+        public int NumeroPessoas { get; set; }
+
+        public override string ToString()
+        {
+            return $"ID: {Id}, Cliente: {NomeCliente}, Data/Hora: {DataHora}, Número de Pessoas: {NumeroPessoas}";
+        }
+    }
+
+    public class SistemaReservas
+    {
+        private List<Reserva> reservas;
+        private int proximoId;
+
+        public SistemaReservas()
+        {
+            reservas = new List<Reserva>();
+            proximoId = 1;
+        }
+
+        public void AdicionarReserva(string nomeCliente, DateTime dataHora, int numeroPessoas)
+        {
+            var reserva = new Reserva
+            {
+                Id = proximoId++,
+                NomeCliente = nomeCliente,
+                DataHora = dataHora,
+                NumeroPessoas = numeroPessoas
+            };
+            reservas.Add(reserva);
+            Console.WriteLine("Reserva adicionada com sucesso!");
+        }
+
+        public void ListarReservas()
+        {
+            if (reservas.Count == 0)
+            {
+                Console.WriteLine("Nenhuma reserva encontrada.");
+                return;
+            }
+
+            Console.WriteLine("\nLista de Reservas:");
+            foreach (var reserva in reservas)
+            {
+                Console.WriteLine(reserva);
+            }
+        }
+
+        public void CancelarReserva(int id)
+        {
+            var reserva = reservas.Find(r => r.Id == id);
+            if (reserva != null)
+            {
+                reservas.Remove(reserva);
+                Console.WriteLine("Reserva cancelada com sucesso!");
+            }
+            else
+            {
+                Console.WriteLine("Reserva não encontrada.");
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var sistemaReservas = new SistemaReservas();
+            int opcao;
+
+            do
+            {
+                Console.WriteLine("\n--- Sistema de Reservas para Restaurante ---");
+                Console.WriteLine("1. Adicionar Reserva");
+                Console.WriteLine("2. Listar Reservas");
+                Console.WriteLine("3. Cancelar Reserva");
+                Console.WriteLine("0. Sair");
+                Console.Write("Escolha uma opção: ");
+
+                if (!int.TryParse(Console.ReadLine(), out opcao))
+                {
+                    Console.WriteLine("Opção inválida!");
+                    continue;
+                }
+
+                switch (opcao)
+                {
+                    case 1:
+                        Console.Write("Digite o nome do cliente: ");
+                        string nome = Console.ReadLine();
+
+                        Console.Write("Digite a data e hora (yyyy-MM-dd HH:mm): ");
+                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime dataHora))
+                        {
+                            Console.WriteLine("Data e hora inválidas!");
+                            break;
+                        }
+
+                        Console.Write("Digite o número de pessoas: ");
+                        if (!int.TryParse(Console.ReadLine(), out int numeroPessoas))
+                        {
+                            Console.WriteLine("Número de pessoas inválido!");
+                            break;
+                        }
+
+                        sistemaReservas.AdicionarReserva(nome, dataHora, numeroPessoas);
+                        break;
+
+                    case 2:
+                        sistemaReservas.ListarReservas();
+                        break;
+
+                    case 3:
+                        Console.Write("Digite o ID da reserva a ser cancelada: ");
+                        if (!int.TryParse(Console.ReadLine(), out int id))
+                        {
+                            Console.WriteLine("ID inválido!");
+                            break;
+                        }
+
+                        sistemaReservas.CancelarReserva(id);
+                        break;
+
+                    case 0:
+                        Console.WriteLine("Saindo do sistema...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        break;
+                }
+
+            } while (opcao != 0);
+        }
+    }
+}
